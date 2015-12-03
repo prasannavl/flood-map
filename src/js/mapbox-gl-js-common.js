@@ -53,7 +53,7 @@ function mapHighlightReset() {
 
       // Revert to default style if known
       try{
-      if (defaultStyle[obj][prop])
+      if (defaultStyle[obj][prop] !== undefined)
         map.setPaintProperty(obj, prop, defaultStyle[obj][prop]);
       }
       catch(e){}

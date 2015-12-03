@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+- '4.1'
+cache:
+  directories:
+  - node_modules
+before_install:
+
+after_success:
+- eval "$(ssh-agent -s)"
+- chmod 600 ./autodeploy_rsa
+- ssh-add ./autodeploy_rsa
+- gulp build
+- cd build
+- git init
+- git config user.name "OSM CI Bot"
+- git config user.email "ci-bot@osm-in"
+- git add .
+- git commit -m "Auto deployment"
+- git remote add deploy git@github.com:osm-in/flood-map.git
+- git push --force deploy master:gh-pages
